@@ -2,6 +2,8 @@
 
 AI Agent to analyze blood reports and provide detailed health insights.
 
+**Live App:** [https://health-insight-agent01.streamlit.app/](https://health-insight-agent01.streamlit.app/)
+
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=Streamlit&logoColor=white" alt="Streamlit">
