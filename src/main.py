@@ -267,7 +267,15 @@ def main():
 
     # Main chat area
     if st.session_state.get("current_session"):
-        st.title(f"📊 {st.session_state.current_session['title']}")
+        col1, col2 = st.columns([0.8, 0.2])
+        with col1:
+            st.title(f"📊 {st.session_state.current_session['title']}")
+        with col2:
+            st.markdown("<div style='margin-top: 15px;'></div>", unsafe_allow_html=True)
+            if st.button("← Back to Dashboard", key="back_to_dashboard", use_container_width=True):
+                st.session_state.current_session = None
+                st.rerun()
+                
         messages = show_chat_history()
 
         # If we have messages (meaning analysis is done), show chat input

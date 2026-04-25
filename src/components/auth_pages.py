@@ -359,6 +359,9 @@ def show_signup_form():
                 # Update session manually to ensure immediate redirect
                 st.session_state.authenticated = True
                 st.session_state.user = response
+                # Set query param for refresh persistence
+                if "clerk_user_id" in st.session_state:
+                    st.query_params["uid"] = st.session_state.clerk_user_id
                 status.update(label="Account created successfully! Redirecting...", state="complete", expanded=False)
                 st.rerun()
             else:

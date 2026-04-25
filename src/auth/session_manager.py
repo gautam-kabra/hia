@@ -35,6 +35,12 @@ class SessionManager:
                 SessionManager.clear_session_state()
                 st.error("Invalid session. Please log in again.")
                 st.rerun()
+        else:
+            # Fallback to query params for refresh persistence
+            if "uid" in st.query_params:
+                st.session_state.clerk_user_id = st.query_params["uid"]
+                if st.session_state.auth_service.try_restore_session():
+                    st.rerun()
     
     @staticmethod
     def _restore_from_storage():
@@ -162,6 +168,10 @@ class SessionManager:
         """Logout user and clear session."""
         if 'auth_service' in st.session_state:
             st.session_state.auth_service.sign_out()
+        
+        if "uid" in st.query_params:
+            del st.query_params["uid"]
+            
         SessionManager.clear_session_state()
     
     @staticmethod
@@ -179,5 +189,8 @@ class SessionManager:
                 user_data, 
                 st.session_state.auth_token
             )
+            # Set query param for refresh persistence
+            if "clerk_user_id" in st.session_state:
+                st.query_params["uid"] = st.session_state.clerk_user_id
             
         return success, user_data
